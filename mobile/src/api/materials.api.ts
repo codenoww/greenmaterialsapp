@@ -23,5 +23,7 @@ export async function fetchMaterials(): Promise<MaterialsListApiResponse> {
     throw new Error("Failed to fetch materials");
   }
 
-  return res.json();
+  const data = await res.json();
+
+  return Array.isArray(data) ? { items: data } : data;
 }

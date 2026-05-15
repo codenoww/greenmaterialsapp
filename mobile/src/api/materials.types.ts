@@ -19,12 +19,13 @@ export type MaterialApiResponse = {
 };
 
 export type MaterialsListApiResponse = {
-  items: Array<{
+  items: {
     id: string;
     name: string;
     category: string;
-    carbonLevel: "low" | "medium" | "high";
-    leedPoints: number;
-  }>;
+    description?: string;
+    carbonLevel?: "low" | "medium" | "high";
+    leedPoints?: number;
+  }[];
 };
 
