@@ -1,0 +1,67 @@
+[
+  {
+    "source_site": "tradeindia.com",
+    "source_url": "https://www.tradeindia.com/products/9x4x3-inch-rectangular-solid-fly-ash-brick-8407590.html",
+    "product_name": "9x4x3 Inch Rectangular Solid Fly Ash Brick",
+    "price": 10,
+    "currency": "INR",
+    "unit": "Piece",
+    "moq": 2500,
+    "seller_name": "Verma Construction Company",
+    "seller_location": "Panipat, Haryana",
+    "scraped_at": "2026-10-23T18:35:00Z",
+    "raw_tags": ["fly ash brick", "construction material"]
+  },
+  {
+    "source_site": "indiamart.com",
+    "source_url": "https://m.indiamart.com/proddetail/fly-ash-solid-block-11628615191.html",
+    "product_name": "Fly Ash Solid Block",
+    "price": null,
+    "price_note": "Best Price (quote on request)",
+    "currency": "INR",
+    "unit": null,
+    "seller_name": "Amma Flyash Bricks And Company",
+    "seller_location": "Gummidipoondi, Tamil Nadu",
+    "scraped_at": "2026-10-23T18:35:00Z",
+    "raw_tags": ["fly ash block"]
+  },
+  {
+    "source_site": "indiamart.com",
+    "source_url": "https://m.indiamart.com/indianhempstore/",
+    "product_name": "Hemp Hurds - Sustainable Building Material",
+    "price": 100,
+    "currency": "INR",
+    "unit": "Kg",
+    "pack_size": "25 Kg",
+    "seller_name": "Indian Hemp Store",
+    "seller_location": "India",
+    "scraped_at": "2026-10-23T18:35:00Z",
+    "raw_tags": ["hemp hurd", "Usage/Application: For Human Consumption", "Type of Seed: Hulled"],
+    "data_quality_note": "Source listing has mismatched metadata tags (consumption/seed fields on a building-material product) — kept as-is to show real scraped data is messy, not cleaned before storage."
+  },
+  {
+    "source_site": "indiamart.com",
+    "source_url": "https://m.indiamart.com/proddetail/compressed-stabilised-earth-blocks-cseb-16448119462.html",
+    "product_name": "Compressed Stabilised Earth Blocks (CSEB), Size: 300 X 150 X 90 mm",
+    "price": 30,
+    "currency": "INR",
+    "unit": "Unit",
+    "seller_name": "Earth Blocks India Pvt. Ltd.",
+    "seller_location": "Bengaluru, Karnataka",
+    "scraped_at": "2026-10-23T18:35:00Z",
+    "raw_tags": ["CSEB", "earth block"]
+  },
+  {
+    "source_site": "tradeindia.com",
+    "source_url": "https://www.tradeindia.com/products/9x9x3-inch-cseb-solid-earth-block-c12150428.html",
+    "product_name": "9x9x3 Inch Mud Block (CSEB)",
+    "price": 32,
+    "currency": "INR",
+    "unit": "Number",
+    "moq": 500,
+    "seller_name": "Adi Shankara Engineering",
+    "seller_location": "Bengaluru, Karnataka",
+    "scraped_at": "2026-10-23T18:35:00Z",
+    "raw_tags": ["CSEB", "mud block", "Carbonation Coefficient: 0.15-0.3"]
+  }
+]
