@@ -7,7 +7,7 @@ A sustainable-material advisor combined with a circular furniture resale marketp
 
 ## Status
 
-Database design phase is complete and verified against a live PostgreSQL instance. Frontend/app layer has not been started yet — by design, this project is being built DB-first (per the course's 60–70% database-weight requirement) before any UI work.
+Database design phase is complete and verified against a live PostgreSQL instance (per the course's 60–70% database-weight requirement, this was built DB-first before any UI work). A minimal Next.js frontend now exists, wired to the live database and the advanced SQL features, kept intentionally basic since the database layer is this project's primary focus.
 
 ## What's in this repo so far
 
@@ -29,6 +29,10 @@ database/
     crowsfoot_schema_diagram.svg/.png        -- alternate crow's-foot style schema diagram
 docs/
   DBMS_Level_3_Project_Requirements.pdf      -- the current official requirements doc this project is being built against
+frontend/
+  lib/db.js, lib/auth.js                     -- pg connection pool + bcrypt/JWT session auth, both reading config from env (no hardcoded credentials)
+  app/api/                                    -- route handlers: auth (register/login/logout/session), materials, furniture (+ buy), projects
+  app/{materials,marketplace,projects,login,register}/page.js  -- minimal pages (plain CSS, no component library)
 ```
 
 **Full project documentation** (objectives, functional requirements, database choice justification, data dictionary, system architecture, testing results, conclusion): https://claude.ai/artifact/LDq2Y2KNUPtJ6paTGjYVAA
@@ -42,9 +46,9 @@ Includes: PK/FK constraints, CHECK constraints, 6 indexes (incl. a GIN full-text
 
 - Database stack: **SQL (PostgreSQL, mandatory) + one of NoSQL or Vector DB** — current design uses PostgreSQL + MongoDB (vendor catalogs) + pgvector (semantic search), which satisfies the "2+ paradigms" rule either way.
 - **≥4 advanced SQL features + ≥1 NoSQL/Vector feature** — planned: triggers (90-day junkyard automation), stored procedure (carbon savings calc), views (already in schema), GIN full-text index, vector similarity search, MongoDB aggregation.
-- Next.js frontend, kept intentionally minimal/basic until the DB layer (DDL, DML, advanced features, both database paradigms) is fully built and demoed.
-- Backend-enforced auth, role-based access (≥2 roles — currently: Admin / Vendor / BuyerSeller).
-- No hardcoded credentials — environment variables for DB config.
+- Next.js frontend — ✅ done, see `frontend/`, kept intentionally minimal/basic since the DB layer is this project's primary focus.
+- Backend-enforced auth, role-based access (≥2 roles — currently: Admin / Vendor / BuyerSeller) — ✅ done, see `frontend/lib/auth.js` + `frontend/app/api/auth/`. Self-registration is restricted to Vendor/BuyerSeller; Admin accounts are provisioned separately.
+- No hardcoded credentials — environment variables for DB config — ✅ done, see `frontend/.env.example` (`DATABASE_URL`, `JWT_SECRET`).
 
 ## Next steps
 
@@ -59,8 +63,17 @@ Includes: PK/FK constraints, CHECK constraints, 6 indexes (incl. a GIN full-text
    - Stored procedure `sp_purchase_listing` — transaction-safe marketplace purchase (row-locked, all-or-nothing)
 
    That's 4+ distinct SQL advanced features (views, indexing, stored functions, triggers) plus transactions as a bonus, alongside the NoSQL aggregation — requirement met.
-4. Minimal Next.js interface + API routes, backend auth with role-based access (≥2 roles)
-5. Documentation package: objectives, functional requirements, database choice justification, data dictionary, system architecture, screenshots, testing results, conclusion
+4. ~~Minimal Next.js interface + API routes, backend auth with role-based access (≥2 roles)~~ ✅ done — see `frontend/`. Material advisor page, marketplace with a working buy flow (calls `sp_purchase_listing`), and a projects page that surfaces the trigger-generated carbon reports. Verified end-to-end (build + live run) against the real Postgres instance.
+5. Documentation package: objectives, functional requirements, database choice justification, data dictionary, system architecture, screenshots, testing results, conclusion — mostly done (see the documentation link above); "Application screenshots" section still needs real screenshots now that the frontend exists.
+
+## Running the frontend
+
+```
+cd frontend
+cp .env.example .env.local   # fill in DATABASE_URL and a real JWT_SECRET
+npm install
+npm run dev                  # or: npm run build && npm run start
+```
 
 ## Data provenance
 
