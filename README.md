@@ -14,6 +14,9 @@ Database design phase is complete and verified against a live PostgreSQL instanc
 ```
 database/
   schema.sql                                 -- full DDL, executed successfully on PostgreSQL 16
+  seed_data.sql                               -- realistic seed data for all 14 tables, FK-safe insert order
+  dml_queries.sql                             -- INSERT/UPDATE/DELETE/SELECT + JOIN/GROUP BY/HAVING/ORDER BY/aggregates/subqueries, all verified against live data
+  alter_demo.sql                              -- ALTER TABLE (add/drop column, widen type, add constraint) + a real DROP TABLE example
   diagrams/
     chen_er_diagram.svg                      -- conceptual ER model (Chen notation: entities, relationships, 1/M/N cardinality)
     relational_schema_diagram.svg/.png       -- textbook-style relation schema (Elmasri/Navathe format, matches course convention)
@@ -37,8 +40,8 @@ Includes: PK/FK constraints, CHECK constraints, 6 indexes (incl. a GIN full-text
 
 ## Next steps
 
-1. Seed data + DML queries (JOIN, GROUP BY, HAVING, subqueries)
-2. Advanced SQL features: trigger, stored procedure, full-text search
-3. NoSQL layer (MongoDB vendor catalogs) + aggregation pipeline, and/or pgvector similarity search
-4. Minimal Next.js interface + API routes, backend auth
-5. Documentation: objectives, functional requirements, data dictionary, system architecture, test cases
+1. ~~Seed data + DML queries (JOIN, GROUP BY, HAVING, subqueries)~~ ✅ done — see `database/seed_data.sql` and `database/dml_queries.sql`
+2. Advanced SQL features: trigger (90-day junkyard automation), stored procedure (carbon savings calc) — views already exist in `schema.sql`; 4th feature TBD (full-text search demo query, or transaction block)
+3. NoSQL layer (MongoDB vendor catalogs) + aggregation pipeline, and/or pgvector similarity search — required: at least one of these
+4. Minimal Next.js interface + API routes, backend auth with role-based access (≥2 roles)
+5. Documentation package: objectives, functional requirements, database choice justification, data dictionary, system architecture, screenshots, testing results, conclusion
