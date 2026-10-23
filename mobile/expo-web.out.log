@@ -1,0 +1,163 @@
+Networking has been disabled
+Starting project at C:\Users\anush\OneDrive\Desktop\greenmaterialsapp\mobile
+React Compiler enabled
+Starting Metro Bundler
+Waiting on http://localhost:8082
+Logs for your project will appear below.
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ node_modules\expo-router\node\render.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ node_modules\expo-router\node\render.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web node_modules\expo-router\entry.js ▓▓░░░░░░░░░░░░░░ 12.7% ( 91/255)
+λ node_modules\expo-router\node\render.js ▓▓▓▓▓▓░░░░░░░░░░ 40.4% (302/475)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ node_modules\expo-router\node\render.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web node_modules\expo-router\entry.js ▓▓▓▓▓▓░░░░░░░░░░ 43.7% (298/451)
+λ node_modules\expo-router\node\render.js ▓▓▓▓▓▓▓▓▓▓▓░░░░░ 72.4% (537/631)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ node_modules\expo-router\node\render.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web node_modules\expo-router\entry.js ▓▓▓▓▓▓▓▓▓▓░░░░░░ 63.4% (477/599)
+λ node_modules\expo-router\node\render.js ▓▓▓▓▓▓▓▓▓▓▓▓░░░░ 75.7% (625/723)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ node_modules\expo-router\node\render.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web node_modules\expo-router\entry.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░ 92.3% (757/810)
+λ node_modules\expo-router\node\render.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░ 92.2% (796/835)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ node_modules\expo-router\node\render.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 16284ms node_modules\expo-router\node\render.js (875 modules)
+λ Bundled 16349ms node_modules\expo-router\node\render.js (1 module)
+🔴 API_BASE_URL AT RUNTIME = http:// 192.168.4.100
+Web node_modules\expo-router\entry.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░ 97.9% (854/863)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+🔴 API_BASE_URL AT RUNTIME = http:// 192.168.4.100
+Web node_modules\expo-router\entry.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░ 97.9% (854/863)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web Bundled 20868ms node_modules\expo-router\entry.js (863 modules)
+Web Bundled 20902ms node_modules\expo-router\entry.js (1 module)
+Web node_modules\expo-router\entry.js ▓▓▓▓▓▓▓░░░░░░░░░ 47.4% (380/552)
+Web node_modules\expo-router\entry.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░ 88.8% (729/780)
+Web Bundled 8224ms node_modules\expo-router\entry.js (865 modules)
+ LOG  [web] Logs will appear in the browser console
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 96ms node_modules\expo-router\node\render.js (1 module)
+🔴 API_BASE_URL AT RUNTIME = http:// 192.168.4.100
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web Bundled 1064ms node_modules\expo-router\entry.js (1 module)
+Unable to resolve "./api" from "src\api\materials.api.ts"
+[0m [90m 3 |[39m   [33mMaterialsListApiResponse[39m[33m,[39m
+ [90m 4 |[39m } [36mfrom[39m [32m"./materials.types"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m { [33mAPI_BASE_URL[39m } [36mfrom[39m [32m"./api"[39m[33m;[39m
+ [90m   |[39m                               [31m[1m^[22m[39m
+ [90m 6 |[39m
+ [90m 7 |[39m [36mexport[39m [36masync[39m [36mfunction[39m fetchMaterialById(
+ [90m 8 |[39m   id[33m:[39m string[0m
+
+Import stack:
+
+ src\api\materials.api.ts
+ | import "./api"
+
+ src\context\MaterialContext.tsx
+ | import "../api/materials.api"
+
+ app\material\[id]\_layout.tsx
+ | import "../../../src/context/MaterialContext"
+
+ app (require.context)
+
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web Bundling failed 12ms node_modules\expo-router\entry.js (1 module)
+λ Bundling failed 37ms node_modules\expo-router\node\render.js (1 module)
+
+Metro error: Unable to resolve module ./api from C:\Users\anush\OneDrive\Desktop\greenmaterialsapp\mobile\src\api\materials.api.ts: 
+
+None of these files exist:
+  * src\api\api(.web.ts|.ts|.web.tsx|.tsx|.web.mjs|.mjs|.web.js|.js|.web.jsx|.jsx|.web.json|.json|.web.cjs|.cjs|.web.scss|.scss|.web.sass|.sass|.web.css|.css)
+  * src\api\api
+[0m [90m 3 |[39m   [33mMaterialsListApiResponse[39m[33m,[39m
+ [90m 4 |[39m } [36mfrom[39m [32m"./materials.types"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m { [33mAPI_BASE_URL[39m } [36mfrom[39m [32m"./api"[39m[33m;[39m
+ [90m   |[39m                               [31m[1m^[22m[39m
+ [90m 6 |[39m
+ [90m 7 |[39m [36mexport[39m [36masync[39m [36mfunction[39m fetchMaterialById(
+ [90m 8 |[39m   id[33m:[39m string[0m
+
+Import stack:
+
+ src\api\materials.api.ts
+ | import "./api"
+
+ src\context\MaterialContext.tsx
+ | import "../api/materials.api"
+
+ app\material\[id]\_layout.tsx
+ | import "../../../src/context/MaterialContext"
+
+ app (require.context)
+
+
+Call Stack
+  <unknown> (src\api\materials.api.ts)
+Web node_modules\expo-router\_error.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░ 91.4% (284/297)
+Web Bundled 5166ms node_modules\expo-router\_error.js (323 modules)
+ LOG  [web] Logs will appear in the browser console
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 24ms node_modules\expo-router\node\render.js (1 module)
+Web Bundled 517ms node_modules\expo-router\entry.js (1 module)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 22ms node_modules\expo-router\node\render.js (1 module)
+Web Bundled 330ms node_modules\expo-router\entry.js (1 module)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 17ms node_modules\expo-router\node\render.js (1 module)
+Web Bundled 292ms node_modules\expo-router\entry.js (1 module)
+Web Bundled 37ms node_modules\expo-router\entry.js (1 module)
+ LOG  [web] Logs will appear in the browser console
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 64ms node_modules\expo-router\node\render.js (1 module)
+Web Bundled 1134ms node_modules\expo-router\entry.js (1 module)
+Web Bundled 71ms node_modules\expo-router\entry.js (1 module)
+ LOG  [web] Logs will appear in the browser console
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 50ms node_modules\expo-router\node\render.js (1 module)
+Web Bundled 532ms node_modules\expo-router\entry.js (1 module)
+Unable to resolve "../../src/screens/materialscreen" from "app\(tabs)\materials.tsx"
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m [33mMaterialsScreen[39m [36mfrom[39m [32m"../../src/screens/materialscreen"[39m[33m;[39m
+ [90m   |[39m                              [31m[1m^[22m[39m
+ [90m 2 |[39m
+ [90m 3 |[39m [36mexport[39m [36mdefault[39m [33mMaterialsScreen[39m[33m;[39m
+ [90m 4 |[39m[0m
+
+Import stack:
+
+ app\(tabs)\materials.tsx
+ | import "../../src/screens/materialscreen"
+
+ app (require.context)
+
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 614ms node_modules\expo-router\node\render.js (1 module)
+Web Bundled 2889ms node_modules\expo-router\entry.js (1 module)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 101ms node_modules\expo-router\node\render.js (1 module)
+Web Bundled 1418ms node_modules\expo-router\entry.js (1 module)
+Web Bundled 87ms node_modules\expo-router\entry.js (1 module)
+ LOG  [web] Logs will appear in the browser console
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 138ms node_modules\expo-router\node\render.js (1 module)
+Web Bundled 1847ms node_modules\expo-router\entry.js (1 module)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 34ms node_modules\expo-router\node\render.js (1 module)
+Web Bundled 3335ms node_modules\expo-router\entry.js (1 module)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web Bundled 278ms node_modules\expo-router\entry.js (1 module)
+ LOG  [web] Logs will appear in the browser console
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 166ms node_modules\expo-router\node\render.js (1 module)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web Bundled 4169ms node_modules\expo-router\entry.js (1 module)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 86ms node_modules\expo-router\node\render.js (1 module)
+Web Bundled 818ms node_modules\expo-router\entry.js (1 module)
+Web Bundled 91ms node_modules\expo-router\entry.js (1 module)
+ LOG  [web] Logs will appear in the browser console

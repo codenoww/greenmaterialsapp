@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Material {
+  id          String @id @default(uuid())
+  name        String
+  category    String
+  description String
+
+  specSheet SpecSheet?
+
+  attributes MaterialAttributeMap[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SpecSheet {
+  id              String @id @default(uuid())
+  manufacturer    String
+  application     String
+  composition     String
+  voc             String
+  recycledContent String
+  region          String
+
+  materialId String   @unique
+  material   Material @relation(fields: [materialId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+model LeedCredit {
+  id          String @id @default(uuid())
+  code        String // e.g. "EQc2"
+  name        String // e.g. "Low-Emitting Materials"
+  category    String // e.g. "EQ", "MR"
+  version     String // e.g. "LEED v4.1 BD+C"
+  description String
+
+  attributes LeedAttributeMap[]
+
+  createdAt DateTime @default(now())
+}
+
+model MaterialAttribute {
+  id        String   @id @default(uuid())
+  key       String // e.g. "low_voc", "recycled_content"
+  label     String // Human readable
+  createdAt DateTime @default(now())
+
+  materials MaterialAttributeMap[]
+  credits   LeedAttributeMap[]
+}
+
+model MaterialAttributeMap {
+  id          String @id @default(uuid())
+  materialId  String
+  attributeId String
+
+  material  Material          @relation(fields: [materialId], references: [id])
+  attribute MaterialAttribute @relation(fields: [attributeId], references: [id])
+
+  @@unique([materialId, attributeId])
+}
+
+model LeedAttributeMap {
+  id           String @id @default(uuid())
+  attributeId  String
+  leedCreditId String
+
+  attribute  MaterialAttribute @relation(fields: [attributeId], references: [id])
+  leedCredit LeedCredit        @relation(fields: [leedCreditId], references: [id])
+
+  @@unique([attributeId, leedCreditId])
+}
