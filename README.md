@@ -31,6 +31,8 @@ docs/
   DBMS_Level_3_Project_Requirements.pdf      -- the current official requirements doc this project is being built against
 ```
 
+**Full project documentation** (objectives, functional requirements, database choice justification, data dictionary, system architecture, testing results, conclusion): https://claude.ai/artifact/LDq2Y2KNUPtJ6paTGjYVAA
+
 ### Current schema (14 tables, PostgreSQL)
 `roles, users, projects, green_materials, traditional_materials, material_alternatives, vendors, vendor_listings, project_materials, carbon_reports, furniture_listings, furniture_transactions, junkyards, junkyard_referrals`
 
