@@ -39,8 +39,13 @@ else:
 
 db = client["ecobuild_exchange"]
 raw_collection = db["raw_vendor_listings"]
+raw_junkyards = db["raw_junkyard_listings"]
 
 SEED_PATH = Path(__file__).parent / "raw_vendor_listings_seed.json"
+JUNKYARD_SEED_PATH = Path(__file__).parent / "raw_junkyard_listings_seed.json"
+
+# The marketplace only refers listings to junkyards in its service area.
+SERVICE_CITY = "Bengaluru"
 
 
 def load_raw_seed():
@@ -50,6 +55,12 @@ def load_raw_seed():
         docs = json.load(f)
     raw_collection.insert_many(docs)
     print(f"[vendor_sync] Loaded {len(docs)} raw vendor documents into MongoDB.")
+
+    raw_junkyards.delete_many({})
+    with open(JUNKYARD_SEED_PATH) as f:
+        junk = json.load(f)
+    raw_junkyards.insert_many(junk)
+    print(f"[vendor_sync] Loaded {len(junk)} raw junkyard documents into MongoDB.")
 
 
 def run_aggregation():
@@ -83,17 +94,39 @@ def run_aggregation():
 # the matching row in the SQL green_materials table (by material_id, as
 # seeded in seed_data.sql).
 MATERIAL_KEYWORDS = {
-    1: ["fly ash"],            # Fly Ash Cement
-    2: ["cseb", "earth block", "mud block"],  # Compressed Stabilized Earth Block
+    1: ["fly ash", "flyash"],  # Fly Ash Cement
+    2: ["cseb", "earth block", "mud block", "earth brick", "mud brick"],  # Compressed Stabilized Earth Block
     3: ["bamboo"],              # Bamboo Flooring
-    4: ["recycled steel", "rebar"],  # Recycled Steel Rebar
+    4: ["recycled steel"],      # Recycled Steel Rebar — plain "TMT rebar" is NOT enough, it must say recycled
     5: ["reclaimed wood", "reclaimed"],  # Reclaimed Wood Panel
-    6: ["hempcrete", "hemp"],   # Hempcrete Block (hemp hurds kept as a related/raw match)
+    6: ["hempcrete"],           # Hempcrete Block (hemp hurds are a raw ingredient, not a block)
 }
+
+# Words that mean the listing is not the material itself (e.g. a machine that
+# makes earth blocks, or an installation service).
+EXCLUDE_WORDS = ["machine", "service"]
+
+# Prices are only comparable within one unit, so each material has one
+# expected pricing unit. Listings priced in another unit (₹/tonne, ₹/kg...)
+# are rejected rather than mixed into the same "best price".
+EXPECTED_UNIT = {1: "piece", 2: "piece", 3: "sq_ft", 4: "tonne", 5: "sq_ft", 6: "piece"}
+
+UNIT_ALIASES = {
+    "piece": "piece", "pieces": "piece", "unit": "piece", "number": "piece", "nos": "piece",
+    "sq ft": "sq_ft", "sq.ft": "sq_ft", "sqft": "sq_ft", "square feet": "sq_ft", "square foot": "sq_ft",
+    "tonne": "tonne", "ton": "tonne", "metric ton": "tonne",
+    "kg": "kg",
+}
+
+
+def normalize_unit(unit):
+    return UNIT_ALIASES.get((unit or "").strip().lower())
 
 
 def match_material_id(product_name: str):
     name = product_name.lower()
+    if any(w in name for w in EXCLUDE_WORDS):
+        return None
     for material_id, keywords in MATERIAL_KEYWORDS.items():
         if any(kw in name for kw in keywords):
             return material_id
@@ -114,7 +147,11 @@ def normalize_and_emit_sql():
     for doc in docs:
         material_id = match_material_id(doc["product_name"])
         if material_id is None:
-            print(f"[vendor_sync] SKIPPED (no material match): {doc['product_name']}")
+            print(f"[vendor_sync] SKIPPED (no material match): {doc['product_name']} [{doc['seller_name']}]")
+            continue
+
+        if normalize_unit(doc.get("unit")) != EXPECTED_UNIT[material_id]:
+            print(f"[vendor_sync] SKIPPED (unit {doc.get('unit')!r} != {EXPECTED_UNIT[material_id]}): {doc['product_name']} [{doc['seller_name']}]")
             continue
 
         seller = doc["seller_name"]
@@ -131,11 +168,28 @@ def normalize_and_emit_sql():
             "material_id": material_id,
             "price": doc["price"],
             "url": doc["source_url"],
-            "location": doc.get("seller_location", "India"),
+            "location": doc.get("seller_location"),
             "site_domain": re.sub(r"^https?://(?:m\.)?([^/]+).*$", r"https://\1", doc["source_url"]),
         })
 
     return vendor_inserts, listing_inserts
+
+
+def normalize_junkyards():
+    """Keep only junkyards inside the marketplace's service area, as clean rows."""
+    docs = list(raw_junkyards.find({}))
+    keep = []
+    for d in docs:
+        if d.get("city") != SERVICE_CITY:
+            print(f"[vendor_sync] SKIPPED junkyard outside {SERVICE_CITY}: {d['name']} ({d.get('city')})")
+            continue
+        keep.append({
+            "name": d["name"],
+            "location": d["city"],
+            "categories": "; ".join(d.get("services", [])),
+            "contact": d.get("phone"),
+        })
+    return keep
 
 
 def sql_str(value):
@@ -177,4 +231,23 @@ if __name__ == "__main__":
                 f"{l['material_id']}, {l['price']}, {sql_str(l['url'])});\n"
             )
 
+        # Junkyards: seed_data.sql already created junkyard rows 1 and 2 (the
+        # seeded referrals point at them), so the first real junkyards replace
+        # those rows in place; any further ones are inserted as new rows.
+        junkyards = normalize_junkyards()
+        f.write("\n-- Junkyards (real Bengaluru scrap / furniture buyers)\n")
+        for i, j in enumerate(junkyards, start=1):
+            if i <= 2:
+                f.write(
+                    f"UPDATE junkyards SET name = {sql_str(j['name'])}, location = {sql_str(j['location'])}, "
+                    f"accepted_categories = {sql_str(j['categories'])}, contact = {sql_str(j['contact'])} "
+                    f"WHERE junkyard_id = {i};\n"
+                )
+            else:
+                f.write(
+                    f"INSERT INTO junkyards (name, location, accepted_categories, contact) VALUES "
+                    f"({sql_str(j['name'])}, {sql_str(j['location'])}, {sql_str(j['categories'])}, {sql_str(j['contact'])});\n"
+                )
+
+    print(f"\n[vendor_sync] Matched {len(junkyards)} junkyards in {SERVICE_CITY}")
     print(f"\n[vendor_sync] Wrote normalized SQL to {out_path}")
